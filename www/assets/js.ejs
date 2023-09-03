@@ -1,0 +1,14 @@
+((win, doc, data)=>{
+	const GenerateFrame = ()=>{
+		const fra = doc.createElement("IFRAME");
+		doc.body.appendChild(fra);
+		fra.className = "frame";
+		fra.src = "./js_app.html?experiments=true&v8only=true&ws=127.0.0.1:" + data.port + "/" + data.ws.name;
+	};
+	setTimeout(()=>{
+		GenerateFrame();
+	}, 100);
+	// ?experiments=true&v8only=true&ws=127.0.0.1:9555/8a9ee2b5-c456-4b60-9e99-269a476e72ed
+})(window, document, <%-
+__append(JSON.stringify({...data}))
+ %> );

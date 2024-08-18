@@ -7,15 +7,15 @@
 	const sass = require("sass");
 	const Ejs = require("ejs");
 	
-	const port = 8587;
+	const MC = require("./Library/mc.js");
+	
+	const port = 9587;
 	
 	const app = express();
 	
 	const GenerateRenderData = ()=>{
 		const resp = {};
-		
-		resp.ws = ATA.Path.parse(inspector.url());
-		resp.port = port;
+		resp.ws = MC.URL_Parse(inspector.url());
 		return resp;
 	};
 	
@@ -139,10 +139,15 @@
 	});
 	
 	app.use(express.static(ATA.Path.join(ATA.CWD, "./www/")));
+	app.get("/r", (req, res, next)=>{
+		const ins_ws = MC.URL_Parse(inspector.url());
+		console.log(ins_ws);
+		res.redirect("/js_app.html?experiments=true&v8only=true&" + ins_ws.protocol + "=" + ins_ws.domain + ":" + ins_ws.port + ins_ws.filepath);
+	});
 	
 	const server = http.createServer(app);
 	
-	inspector.open(port);
+	inspector.open(port- -5);
 	server.listen(port);
 	
 	console.log("You can visit http://localhost:" + port + "/");

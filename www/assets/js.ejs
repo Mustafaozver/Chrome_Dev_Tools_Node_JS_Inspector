@@ -3,7 +3,7 @@
 		const fra = doc.createElement("IFRAME");
 		doc.body.appendChild(fra);
 		fra.className = "frame";
-		fra.src = "./js_app.html?experiments=true&v8only=true&ws=127.0.0.1:" + data.port + "/" + data.ws.name;
+		fra.src = "./js_app.html?experiments=true&v8only=true&" + data.ws.protocol + "=" + data.ws.domain + ":" + data.ws.port + data.ws.filepath;
 	};
 	setTimeout(()=>{
 		GenerateFrame();
